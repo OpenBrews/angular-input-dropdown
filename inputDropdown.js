@@ -7,6 +7,7 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
            'ng-attr-placeholder="{{inputNgAttrPlaceholder}}"' +
            'autocomplete="off"' +
            'ng-model="inputValue"' +
+           'class="{{inputClassName}}"' + 
            'ng-required="inputRequired"' +
            'ng-change="inputChange()"' +
            'ng-focus="inputFocus()"' +
@@ -33,6 +34,7 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
       allowCustomInput: '=',
       inputRequired: '=',
       inputName: '@',
+      inputClassName: '@',
       inputPlaceholder: '@',
       inputNgAttrPlaceholder: '@',
       filterListMethod: '&',
@@ -201,6 +203,11 @@ angular.module('inputDropdown', []).directive('inputDropdown', [function() {
             if (scope.dropdownVisible && scope.dropdownItems && scope.dropdownItems.length > 0 && scope.activeItemIndex !== -1) {
               // only preventDefault when there is a list so that we can submit form with return key after a selection is made
               event.preventDefault();
+              scope.$apply(selectActiveItem);
+            }
+            break;
+          case 9: // tab
+            if (scope.dropdownVisible && scope.dropdownItems && scope.dropdownItems.length > 0 && scope.activeItemIndex !== -1) {              
               scope.$apply(selectActiveItem);
             }
             break;
